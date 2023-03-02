@@ -68,6 +68,12 @@ class SymbolTableController {
 
         const symbol = await symbolExists(name, scope);
 
+        if (!symbol) {
+            return res.status(400).json({
+                message: errors.SYMBOL_DOES_NOT_EXISTS
+            });
+        }
+
         res.status(200).json({
             symbol
         });
