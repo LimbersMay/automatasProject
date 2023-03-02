@@ -1,12 +1,12 @@
 const SymbolTable = require("../models/symbolTable.schema");
-const {symbolExists} = require("../helpers/db.validations");
+const {findSymbol} = require("../helpers/db.validations");
 const {errors} = require("../utilities/errors");
 
 class SymbolTableController {
 
     add = async (req, res) => {
 
-        const { name, dataType, type, scope, line, value, father } = req.body;
+        const { name, dataType, type, scope, line, value, father = 'null' } = req.body;
 
         // 0. Check if parameters are valid
         if (!name || !dataType || !type || !scope || !line || !value) {
@@ -17,7 +17,7 @@ class SymbolTableController {
 
         // validations
         // 1. Check if symbol already exists
-        const exists = await symbolExists(name, scope);
+        const exists = await findSymbol({name, scope});
 
         if (exists) {
             return res.status(400).json({
@@ -26,8 +26,8 @@ class SymbolTableController {
         }
 
         // 2. Check if father exists
-        if (father !== undefined) {
-            const fatherExists = await symbolExists(father, scope);
+        if (father !== undefined && father !== 'null') {
+            const fatherExists = await findSymbol({father, scope});
 
             if (!fatherExists) {
                 return res.status(400).json({
@@ -49,12 +49,7 @@ class SymbolTableController {
 
         await symbol.save();
 
-        const createdSymbol = await SymbolTable.findOne({
-            where: {
-                name,
-                scope
-            }
-        });
+        const createdSymbol = await findSymbol({name, scope});
 
         res.status(200).json({
             message: 'Symbol added successfully',
@@ -66,7 +61,7 @@ class SymbolTableController {
 
         const { name, scope } = req.query;
 
-        const symbol = await symbolExists(name, scope);
+        const symbol = await findSymbol({name, scope});
 
         if (!symbol) {
             return res.status(400).json({
@@ -91,7 +86,7 @@ class SymbolTableController {
 
         // validations
         // 1. Check if symbol exists
-        const symbol = await symbolExists(name, scope);
+        const symbol = await findSymbol({name, scope});
 
         if (!symbol) {
             return res.status(400).json({
@@ -140,7 +135,31 @@ class SymbolTableController {
 
     setAttribute = async (req, res) => {
 
-        const { name, value, father } = req.body;
+        const { name, value, scope, father = 'null' } = req.body;
+
+        if (!name || !value || !scope) {
+            return res.status(400).json({
+                message: errors.MISSING_PARAMETERS
+            });
+        }
+
+        // validations
+        // 1. Check if symbol exists
+        let symbol = null;
+
+        if (scope === 'global') {
+            symbol = await findSymbol({name, scope});
+        }
+
+        if (scope !== 'global') {
+            symbol = await findSymbol({name, scope, father});
+        }
+
+        if (!symbol ) {
+            return res.status(400).json({
+                message: errors.SYMBOL_DOES_NOT_EXISTS
+            });
+        }
 
         await SymbolTable.update(
             {
@@ -149,21 +168,22 @@ class SymbolTableController {
             {
                 where: {
                     name,
+                    scope,
                     father
                 }
             }
         );
+
+        res.status(200).json({
+            message: 'Symbol updated successfully'
+        });
     }
 
     getAttribute = async (req, res) => {
 
-        const { name } = req.query;
+        const { name, scope, father = 'null' } = req.query;
 
-        const symbol = await SymbolTable.findOne({
-            where: {
-                name
-            }
-        });
+        const symbol = await findSymbol({ name, scope, father });
 
         res.status(200).json({
             symbol
