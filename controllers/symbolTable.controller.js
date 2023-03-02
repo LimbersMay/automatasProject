@@ -8,6 +8,13 @@ class SymbolTableController {
 
         const { name, dataType, type, scope, line, value, father } = req.body;
 
+        // 0. Check if parameters are valid
+        if (!name || !dataType || !type || !scope || !line || !value) {
+            return res.status(400).json({
+                message: errors.MISSING_PARAMETERS
+            });
+        }
+
         // validations
         // 1. Check if symbol already exists
         const exists = await symbolExists(name, scope);
@@ -19,7 +26,7 @@ class SymbolTableController {
         }
 
         // 2. Check if father exists
-        if (father) {
+        if (father !== undefined) {
             const fatherExists = await symbolExists(father, scope);
 
             if (!fatherExists) {
@@ -41,6 +48,18 @@ class SymbolTableController {
         });
 
         await symbol.save();
+
+        const createdSymbol = await SymbolTable.findOne({
+            where: {
+                name,
+                scope
+            }
+        });
+
+        res.status(200).json({
+            message: 'Symbol added successfully',
+            createdSymbol
+        });
     }
 
     lookUp = async (req, res) => {
@@ -93,6 +112,10 @@ class SymbolTableController {
                 scope
             }
         });
+
+        res.status(200).json({
+            message: 'Symbol deleted successfully'
+        });
     }
 
     free = async (req, res) => {
@@ -103,6 +126,10 @@ class SymbolTableController {
         await SymbolTable.destroy({
             where: {}
         });
+
+        res.status(201).json({
+            message: "Symbols deleted successfully"
+        })
     }
 
     setAttribute = async (req, res) => {
