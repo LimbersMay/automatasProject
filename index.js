@@ -2,16 +2,20 @@ const express = require('express');
 const app = express();
 
 const db = require('./db/connection');
-const SymbolTableRouter = require('./routes/symbolTable.route');
 
+// middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+// database connection
 db.authenticate().then();
 
-app.use('/api', SymbolTableRouter);
+// routes
+app.use('/api', require('./routes/symbolTable.route'));
+app.use('/', require('./routes/home'));
 
+// server
 app.listen(3000, () => {
     console.log('listening on port 3000');
 });
