@@ -2,18 +2,19 @@ const express = require('express');
 const app = express();
 
 const db = require('./db/connection');
+const bodyParser = require("body-parser");
 
 // middlewares
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-
-// database connection
-db.authenticate().then();
 
 // routes
 app.use('/api', require('./routes/symbolTable.route'));
 app.use('/', require('./routes/home'));
+
+// database connection
+db.authenticate().then();
 
 // server
 app.listen(3000, () => {
