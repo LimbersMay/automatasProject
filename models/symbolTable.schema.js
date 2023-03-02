@@ -17,7 +17,8 @@ const db = require('../db/connection');
 const SymbolTableSchema = db.define('SymbolTableSchema', {
     symbolTableId: {
         type: DataTypes.STRING,
-        required: true
+        required: true,
+        primaryKey: true
     },
     name: {
         type: DataTypes.STRING,
@@ -45,7 +46,7 @@ const SymbolTableSchema = db.define('SymbolTableSchema', {
     },
     father: {
         type: DataTypes.STRING,
-        required: true
+        defaultValue: null
     }
 }, {
     tableName: 'symbolTable'
