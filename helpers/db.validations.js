@@ -1,16 +1,15 @@
 
 const SymbolTable = require('../models/symbolTable.schema');
 
-const symbolExists = async (name, scope) => {
+const findSymbol = async (criteria) => {
 
     return await SymbolTable.findOne({
         where: {
-            name,
-            scope
+            ...criteria
         }
     });
 }
 
 module.exports = {
-    symbolExists
+    findSymbol
 }
