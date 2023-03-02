@@ -15,6 +15,10 @@ const db = require('../db/connection');
  */
 
 const SymbolTableSchema = db.define('SymbolTableSchema', {
+    symbolTableId: {
+        type: DataTypes.STRING,
+        required: true
+    },
     name: {
         type: DataTypes.STRING,
         required: true
@@ -46,3 +50,5 @@ const SymbolTableSchema = db.define('SymbolTableSchema', {
 }, {
     tableName: 'symbolTable'
 });
+
+module.exports = SymbolTableSchema;
