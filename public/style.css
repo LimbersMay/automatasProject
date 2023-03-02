@@ -8,10 +8,9 @@
     width: 400px;
     background: #4285F4;
     padding: 30px;
-    margin: auto;
-    margin-top: 100px;
+    margin: 100px auto auto;
     border-radius: 4px;
-    font-family: 'calibri';
+    font-family: 'calibri', serif;
     color: white;
     }
 
@@ -28,7 +27,7 @@
     border-radius: 4px;
     margin-bottom: 26px;
     border: 1px solid #34A853;
-    font-family: 'calibri';
+    font-family: 'calibri', serif;
     font-size: 18px;
     }
 
@@ -57,4 +56,10 @@
 
 .form-register .botons:hover {
     background: #EA4335;
+}
+
+a {
+    text-decoration: none;
+    text-align: center;
+    color: white;
 }
