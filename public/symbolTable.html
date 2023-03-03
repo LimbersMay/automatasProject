@@ -1,39 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla de simbolos</title>
-    <link rel="stylesheet" href="style2.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tabla de simbolos</title>
+        <link rel="stylesheet" href="style2.css">
+    </head>
+    <body>
 
-<div class="container">
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Datatype</th>
-            <th>Type</th>
-            <th>Scope</th>
-            <th>Line</th>
-            <th>Father</th>
-        </tr>
-        </thead>
+        <div class="container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Datatype</th>
+                    <th>Type</th>
+                    <th>Scope</th>
+                    <th>Line</th>
+                    <th>Value</th>
+                    <th>Father</th>
+                </tr>
+                </thead>
 
-        <tbody>
-        <tr>
-            <td>a</td>
-            <td>int</td>
-            <td>variable</td>
-            <td>global</td>
-            <td>04</td>
-            <td>no</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-</body>
+                <tbody id="table-content">
+                </tbody>
+            </table>
+        </div>
+        <script type="module" src="js/events/tableEvents.js"></script>
+    </body>
 </html>
