@@ -75,3 +75,23 @@ export const deleteSymbol = async (name, scope) => {
         ok: true
     }
 }
+
+export const freeTable = async () => {
+    const response = await fetch(`${API_URL}/api/free`, {
+        method: 'DELETE'
+    });
+
+    const data = await response.json();
+
+    if (response.status !== 201) {
+        return {
+            message: data.message,
+            ok: false
+        }
+    }
+
+    return {
+        message: data.message,
+        ok: true
+    }
+}
