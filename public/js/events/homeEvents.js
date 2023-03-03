@@ -36,7 +36,8 @@ addSymbolBtn.addEventListener('click', async () => {
 
 // SEARCH SYMBOL BUTTON
 const searchSymbolBtn = document.getElementById('lookUp');
-searchSymbolBtn.addEventListener('click', async () => {
+
+const searchSymbol = async () => {
     const name = document.getElementById('name').value;
     const scope = document.getElementById('scope').value;
 
@@ -56,7 +57,9 @@ searchSymbolBtn.addEventListener('click', async () => {
     document.getElementById('line').value = line;
     document.getElementById('value').value = value;
     document.getElementById('father').value = father;
-});
+}
+
+searchSymbolBtn.addEventListener('click', searchSymbol);
 
 // DELETE SYMBOL BUTTON
 const deleteSymbolBtn = document.getElementById('delete');
@@ -103,8 +106,6 @@ updateSymbolBtn.addEventListener('click', async () => {
 
     const result = await updateSymbol(name, value, scope);
 
-    console.log(result);
-
     if (!result.ok) {
         // set message
         messageElement.innerText = `Message: ${getValidationError(result.message)}`;
@@ -114,3 +115,7 @@ updateSymbolBtn.addEventListener('click', async () => {
     // set message
     messageElement.innerText = `Message: ${result.message}`;
 });
+
+// GET SYMBOL INFO BUTTON
+const getSymbolInfoBtn = document.getElementById('getSymbol');
+getSymbolInfoBtn.addEventListener('click', searchSymbol);
