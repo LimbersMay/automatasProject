@@ -9,15 +9,33 @@
 </head>
 <body>
     <section class="form-register">
-        <h4>Llenar los campos del simbolo</h4>
-        <input class="controls" type="text" name="name" id="name" placeholder="Nombre del simbolo">
-        <input class="controls" type="text" name="dataType" id="dataType" placeholder="Tipo de dato del simbolo">
-        <input class="controls" type="text" name="type" id="type" placeholder="Tipo de dato con el que se define">
-        <input class="controls" type="text" name="scope" id="scope" placeholder="Alcance del simbolo">
-        <input class="controls" type="text" name="line" id="line" placeholder="Valor del simbolo">
-        <input class="controls" type="text" name="father" id="father" placeholder="Indicar su padre (opcional)">
-        <input class="botons" type="submit" value="Agregar a la tabla">
-        <p><a href="#">Ir a la tabla de simbolos</a></p>
+
+        <div class="fields-container">
+            <h4>Llenar los campos del simbolo</h4>
+            <input class="controls" type="text" name="name" id="name" placeholder="Nombre del simbolo">
+            <input class="controls" type="text" name="dataType" id="dataType" placeholder="Tipo de dato del simbolo">
+            <input class="controls" type="text" name="type" id="type" placeholder="Tipo de dato con el que se define">
+            <input class="controls" type="text" name="scope" id="scope" placeholder="Alcance del simbolo">
+            <input class="controls" type="text" name="line" id="line" placeholder="linea">
+            <input class="controls" type="text" name="line" id="value" placeholder="Valor del simbolo">
+            <input class="controls" type="text" name="father" id="father" placeholder="Indicar su padre (opcional)">
+        </div>
+
+        <div>
+            <p id="operation-message">Message</p>
+        </div>
+
+        <div class="buttons-container">
+            <input class="botons" id="add-symbol" type="submit" value="Agregar a la tabla">
+            <input class="botons" id="lookUp" type="submit" value="Buscar simbolo">
+            <input class="botons" id="delete" type="submit" value="Eliminar simbolo">
+            <input class="botons" id="free" type="submit" value="Limpiar tabla">
+            <input class="botons" id="setSymbol" type="submit" value="Modificar simbolo">
+            <input class="botons" id="getSymbol" type="submit" value="Obtener información de símbolo">
+            <p><a href="/symbolTable">Ir a la tabla</a></p>
+        </div>
     </section>
+
+    <script type="module" src="js/events/homeEvents.js"></script>
 </body>
 </html>

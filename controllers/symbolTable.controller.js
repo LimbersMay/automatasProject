@@ -27,7 +27,7 @@ class SymbolTableController {
 
         // 2. Check if father exists
         if (father !== undefined && father !== 'null') {
-            const fatherExists = await findSymbol({father, scope});
+            const fatherExists = await findSymbol({name: father});
 
             if (!fatherExists) {
                 return res.status(400).json({
