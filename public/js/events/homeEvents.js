@@ -56,8 +56,6 @@ searchSymbolBtn.addEventListener('click', async () => {
     document.getElementById('line').value = line;
     document.getElementById('value').value = value;
     document.getElementById('father').value = father;
-
-    console.log(result);
 });
 
 // DELETE SYMBOL BUTTON
