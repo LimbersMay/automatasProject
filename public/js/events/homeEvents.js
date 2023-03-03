@@ -1,4 +1,4 @@
-import {addSymbol, deleteSymbol, getSymbol} from "../api/backend-api.js";
+import {addSymbol, deleteSymbol, freeTable, getSymbol} from "../api/backend-api.js";
 import {getValidationError} from "../helpers/getValidation.js";
 
 // ADD SYMBOL BUTTON
@@ -79,3 +79,18 @@ deleteSymbolBtn.addEventListener('click', async () => {
     messageElement.innerText = `Message: ${result.message}`;
 });
 
+// FREE SYMBOL BUTTON
+const freeSymbolBtn = document.getElementById('free');
+freeSymbolBtn.addEventListener('click', async () => {
+
+    const result = await freeTable();
+
+    if (!result.ok) {
+        // set message
+        messageElement.innerText = `Message: ${getValidationError(result.message)}`;
+        return;
+    }
+
+    // set message
+    messageElement.innerText = `Message: ${result.message}`;
+});
