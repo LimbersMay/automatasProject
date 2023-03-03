@@ -36,6 +36,6 @@ export const addSymbol = async (name, dataType, type, scope, line, value, father
 }
 
 export const getSymbols = async () => {
-    const data = await fetch(`${API_URL}/api/view`);
-    console.log(data);
+    const response = await fetch(`${API_URL}/api/view`);
+    return await response.json();
 }
