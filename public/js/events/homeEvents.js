@@ -1,4 +1,4 @@
-import {addSymbol, getSymbol} from "../api/backend-api.js";
+import {addSymbol, deleteSymbol, getSymbol} from "../api/backend-api.js";
 import {getValidationError} from "../helpers/getValidation.js";
 
 // ADD SYMBOL BUTTON
@@ -58,5 +58,24 @@ searchSymbolBtn.addEventListener('click', async () => {
     document.getElementById('father').value = father;
 
     console.log(result);
+});
+
+// DELETE SYMBOL BUTTON
+const deleteSymbolBtn = document.getElementById('delete');
+deleteSymbolBtn.addEventListener('click', async () => {
+
+    const name = document.getElementById('name').value;
+    const scope = document.getElementById('scope').value;
+
+    const result = await deleteSymbol(name, scope);
+
+    if (!result.ok) {
+        // set message
+        messageElement.innerText = `Message: ${getValidationError(result.message)}`;
+        return;
+    }
+
+    // set message
+    messageElement.innerText = `Message: ${result.message}`;
 });
 
