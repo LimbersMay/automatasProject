@@ -95,3 +95,32 @@ export const freeTable = async () => {
         ok: true
     }
 }
+
+export const updateSymbol = async (name, value, scope) => {
+
+    const response = await fetch(`${API_URL}/api/set-attribute`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name,
+            scope,
+            value
+        })
+    });
+
+    const data = await response.json();
+
+    if (response.status !== 200) {
+        return {
+            message: data.message,
+            ok: false
+        }
+    }
+
+    return {
+        message: data.message,
+        ok: true
+    }
+}
