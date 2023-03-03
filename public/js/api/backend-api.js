@@ -39,3 +39,21 @@ export const getSymbols = async () => {
     const response = await fetch(`${API_URL}/api/view`);
     return await response.json();
 }
+
+export const getSymbol = async (name, scope) => {
+
+    const response = await fetch(`${API_URL}/api/look-up?name=${name}&scope=${scope}`);
+    const data = await response.json();
+
+    if (response.status !== 200) {
+        return {
+            message: data.message,
+            ok: false
+        }
+    }
+
+    return {
+        symbol: data.symbol,
+        ok: true
+    }
+}
